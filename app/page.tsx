@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useRouter } from 'next/navigation';
 
 const espaces = [
@@ -8,7 +8,7 @@ const espaces = [
     desc: 'Inscription, évaluation SigmundTest, suivi parcours, carte de compétences',
     couleur: '#1D9E75',
     bg: '#E1F5EE',
-    icon: '🎓',
+    icon: '[JEUNE]',
     href: '/jeune',
   },
   {
@@ -17,7 +17,7 @@ const espaces = [
     desc: 'Dashboard bénéficiaires, restitutions, affectations, rapports',
     couleur: '#185FA5',
     bg: '#E6F1FB',
-    icon: '👤',
+    icon: '[PROFIL]',
     href: '/conseiller',
   },
   {
@@ -26,7 +26,7 @@ const espaces = [
     desc: 'Publication postes, profils matchés, messagerie candidats, contrats',
     couleur: '#854F0B',
     bg: '#FAEEDA',
-    icon: '🏢',
+    icon: '[ENTREPRISE]',
     href: '/employeur',
   },
   {
@@ -35,7 +35,7 @@ const espaces = [
     desc: 'Emploi du temps, suivi présence, évaluations, jury CQP',
     couleur: '#534AB7',
     bg: '#EEEDFE',
-    icon: '📚',
+    icon: '[FORMATION]',
     href: '/formateur',
   },
   {
@@ -44,7 +44,7 @@ const espaces = [
     desc: 'Gestion utilisateurs, paramétrage, monitoring, rapports financiers',
     couleur: '#712B13',
     bg: '#FAECE7',
-    icon: '⚙️',
+    icon: '[ADMIN]',
     href: '/admin',
   },
   {
@@ -53,7 +53,7 @@ const espaces = [
     desc: 'Dashboard ministères, KPIs anonymisés, rapports bailleurs',
     couleur: '#27500A',
     bg: '#EAF3DE',
-    icon: '📊',
+    icon: '[DATA]',
     href: '/opc',
   },
 ];
@@ -108,7 +108,7 @@ export default function Home() {
               <div className="font-semibold text-gray-900 text-base mb-2">{e.titre}</div>
               <div className="text-gray-500 text-sm leading-relaxed">{e.desc}</div>
               <div className="mt-4 text-sm font-medium flex items-center gap-1" style={{ color: e.couleur }}>
-                Accéder <span>→</span>
+                Accéder <span>&gt;</span>
               </div>
             </button>
           ))}
