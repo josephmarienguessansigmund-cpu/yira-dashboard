@@ -1,32 +1,61 @@
-﻿// Définition des routes de l'API
-export const endpoints = {
-  filieres: {
-    list: '/filieres',
+﻿const BASE = process.env.NEXT_PUBLIC_API_URL || 'https://yira-api-production.up.railway.app/api/v1';
+
+function getHeaders() {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('yira_token') : null;
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {})
+  };
+}
+
+export const api = {
+  get: async (url: string) => {
+    const res = await fetch(`${BASE}${url}`, { headers: getHeaders() });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
   },
-  carte: {
-    get: (code: string) => `/carte/${code}`,
-    creer: '/carte/creer',
+  post: async (url: string, body: any) => {
+    const res = await fetch(`${BASE}${url}`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
   },
-  ia: {
-    orientation: '/ia/orientation',
-    coaching: '/ia/coaching',
+  put: async (url: string, body: any) => {
+    const res = await fetch(`${BASE}${url}`, {
+      method: 'PUT',
+      headers: getHeaders(),
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
   },
+  delete: async (url: string) => {
+    const res = await fetch(`${BASE}${url}`, { method: 'DELETE', headers: getHeaders() });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  }
 };
 
-/**
- * Récupère la liste des filières via l'API.
- * Cette fonction est exportée pour être utilisée dans les Server Components.
- */
-export async function getFilieres(pays?: string) {
-  // On utilise le pays passé en paramètre ou la constante TENANT (ex: "CI")
-  // Assurez-vous que 'api' et 'TENANT' sont bien importés ou définis plus haut dans ce fichier.
-  const tenantId = pays ?? (typeof TENANT !== 'undefined' ? TENANT : 'CI');
-  
-  try {
-    const response = await api.get(`${endpoints.filieres.list}?pays=${tenantId}`);
-    return response.data;
-  } catch (error) {
-    console.error("Erreur lors de la récupération des filières:", error);
-    return [];
-  }
-}
+export const endpoints = {
+  auth: {
+    login:      '/auth/conseiller/login',
+    loginAdmin: '/auth/admin/login',
+    loginDrh:   '/auth/drh/login',
+    register:   '/auth/jeune/inscription',
+  },
+  admin: {
+    beneficiaires: '/admin/beneficiaires',
+    conseillers:   '/admin/conseillers',
+    stats:         '/admin/stats',
+  },
+  jeune: {
+    profil:    '/jeune/profil',
+    test:      '/jeune/test-result',
+    filieres:  '/jeune/filieres',
+  },
+  pays: '/pays',
+  stats: '/stats',
+};
