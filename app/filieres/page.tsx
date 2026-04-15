@@ -1,5 +1,11 @@
 import { getFilieres } from "@/lib/api";
 
+// 1. Placez l'interface ici, en dehors du composant
+interface Filiere {
+  id: string;
+  nom: string;
+}
+
 export default async function FilieresPage() {
   const filieres = await getFilieres("CI");
 
@@ -7,7 +13,8 @@ export default async function FilieresPage() {
     <div>
       <h1>Filières</h1>
 
-      {filieres.map((f: any) => (
+      {/* 2. Utilisez l'interface dans le .map() ici */}
+      {filieres.map((f: Filiere) => (
         <div key={f.id}>
           <p>{f.nom}</p>
         </div>
